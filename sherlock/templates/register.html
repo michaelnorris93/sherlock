@@ -1,0 +1,33 @@
+<html>
+	<body>
+{{ state }}
+												<form action="/register/" method="post">
+									
+														<h1>Register for Beacon</h1>
+														{% csrf_token %}	
+			{% if next %}
+				<input type="hidden" name="next" value="{{ next }}" />
+			{% endif %}
+			
+			username:
+			<input type = "text" name = "username" value = "{{ username }}" />
+			</br>
+
+			password:
+			<input type = "password" name = "password" value = "" />
+			</br>
+
+			Confirm password:
+			<input type = "password" name = "confirm password" value = "" />
+			</br>
+			
+			Email:
+			<input type = "text" name = "email" value = "{{ email }}" />
+			</br>
+
+			<input type = "submit" value = "register" />
+		</form>
+	
+</div>
+	</body>
+</html>

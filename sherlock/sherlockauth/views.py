@@ -9,7 +9,7 @@ from django import forms
 
 def login_user(request):
 	if request.user.is_authenticated():
-		return render(request, 'useractive.html', {'user': request.user})
+		return render(request, 'home.html', {'user': request.user})
 
 	state = "Please log in below..."
 	username = password = ''
@@ -23,7 +23,7 @@ def login_user(request):
 			if user.is_active:
 				login(request, user)
 				state = "You're successfully logged in!"
-				return render(request, 'useractive.html', {'user': user})
+				return render(request, 'home.html', {'user': user})
 			else:
 				state = "Your account is not active, please contact the site admin."
 		else:
@@ -37,7 +37,7 @@ def logout_user(request):
 
 @login_required(login_url="/login/")
 def homepage(request):
-	return render(request, 'useractive.html', {'user': request.user})
+	return render(request, 'home.html', {'user': request.user})
 
 
 
@@ -71,6 +71,6 @@ def register_user(request):
 			new_user.save()
 			user = authenticate(username=username, password = password)
 			login(request, user)
-			return render(request, 'useractive.html', {'user': user})
+			return render(request, 'home.html', {'user': user})
 
 	return render_to_response('register.html', {'state': state, 'username': username, 'email': email}, context_instance = RequestContext(request))
