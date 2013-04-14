@@ -7,87 +7,70 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django import forms
 
-from suggestions.models import suggestion, group
-from suggestions.views import groupSuggestions
-
-def homepage(request):
-    if request.POST:    
-        #go to group
-        groupName = request.POST.get('groupName')
-        if(groupName is not None):
-            return groupSuggestions(request)
- 
-        #log in user
-        login_username = request.POST.get('login_username')
-        login_password = request.POST.get('login_password')
-        if(login_username is not None and login_password is not None):
-            return login_user(request)    
-
-        #register user
-        register_username = request.POST.get('register_username')
-        register_password = request.POST.get('register_password')
-        register_cpassword = request.POST.get('register_cpassword')
-        register_email = request.POST.get('register_email')
-        if(register_username is not None and register_password is not None and register_cpassword is not None and register_email is not None):
-            return register_user(request)
-
-    return render_to_response('homepage.html', context_instance = RequestContext(request))
-
 def login_user(request):
-    if request.user.is_authenticated():
-        #should never run since html should remove login modal if user is logged in 
-        return render_to_response('homepage.html', context_instance = RequestContext(request)) 
+	if request.user.is_authenticated():
+		return render(request, 'home.html', {'user': request.user})
 
-    state = "Please log in below..."
-    username = request.POST.get('login_username')
-    password = request.POST.get('login_password')
+	state = "Please log in below..."
+	username = password = ''
+	
+	if request.POST:
+		username = request.POST.get('username')
+		password = request.POST.get('password')
 
-    user = authenticate(username=username, password=password)
-    
-    if user is not None:
-        if user.is_active:
-            login(request, user)
-            state = "You're successfully logged in!"
-        else:
-            state = "Your account is not active, please contact a site admin."
-    else:
-        state = "Your username and/or password were incorrect."    
+		user = authenticate(username=username, password=password)
+		if user is not None:
+			if user.is_active:
+				login(request, user)
+				state = "You're successfully logged in!"
+				return render(request, 'home.html', {'user': user})
+			else:
+				state = "Your account is not active, please contact the site admin."
+		else:
+			state = "Your username and/or password were incorrect."
 
-    return render_to_response('homepage.html', {'state': state}, context_instance = RequestContext(request))
+	return render(request, 'login.html', {'state': state, 'username': username})
 
 def logout_user(request):
-    logout(request)
-    return render_to_response('homepage.html', context_instance = RequestContext(request))
+	logout(request)
+	return render(request, 'logout.html')
+
+@login_required(login_url="/login/")
+def homepage(request):
+	return render(request, 'home.html', {'user': request.user})
+
+
 
 def register_user(request):
-    state = "Please fill in all of the blanks below..."
-    username = request.POST.get('register_username')
-    password = request.POST.get('register_password')
-    confirm_password = request.POST.get('register_cpassword')
-    email = request.POST.get('register_email')
- 
-    try:
-        user = User.objects.get(username = username)
-        state = "That username is already taken."
-    except User.DoesNotExist:
-        donothing = 3
+	state = "Please fill in all of the blanks below..."
+	username = password = confirm_password = email = '';
+	
+	if request.POST:
+		username = request.POST.get('username')
+		password = request.POST.get('password')
+		confirm_password = request.POST.get('confirm password')
+		email = request.POST.get('email')
 
-    if(password != confirm_password):
-        state = "Your passwords do not match."
-    else:
-        if(password == ''):
-            state = "Please enter a valid password."
+		try:
+			user = User.objects.get(username = username)
+			state = "That username is already taken."
+		except User.DoesNotExist:
+			donothing = 3
 
-    if(email == ''):
-        state = "Please enter an email address."
+		if(password != confirm_password):
+			state = "Your passwords do not match."
+		else:
+			if(password == ''):
+				state = "Please enter a valid password."
 
-    if(state == "Please fill in all of the blanks below..."):
-        new_user = User.objects.create_user(username, email, password)
-        new_user.save()
-        user = authenticate(username=username, password = password)
-        login(request, user)
-    
-    return render_to_response('homepage.html', {'state': state}, context_instance = RequestContext(request))
+		if(email == ''):
+			state = "Please enter an email address."
 
-def about(request):
-	return render_to_response('about.html', context_instance = RequestContext(request))
+		if(state == "Please fill in all of the blanks below..."):
+			new_user = User.objects.create_user(username, email, password)
+			new_user.save()
+			user = authenticate(username=username, password = password)
+			login(request, user)
+			return render(request, 'home.html', {'user': user})
+
+	return render_to_response('register.html', {'state': state, 'username': username, 'email': email}, context_instance = RequestContext(request))
