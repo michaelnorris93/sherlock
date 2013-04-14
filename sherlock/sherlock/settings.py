@@ -1,7 +1,7 @@
 # Django settings for sherlock project.
 from unipath import Path
 
-PROJECT_DIR = Path(__file__).ancestor(3)
+PROJECT_DIR = Path(__file__).ancestor(2)
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
