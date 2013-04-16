@@ -1,0 +1,8 @@
+{% include 'header.html' %}
+
+<form action="/UploadInfo/" enctype="multipart/form-data" method="POST">{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="Submit"/>
+</form>
+
+{% include 'footer.html' %}

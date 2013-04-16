@@ -6,13 +6,13 @@ import os
 admin.autodiscover()
 
 urlpatterns = patterns('',
-     url(r'^$', 'auth.views.login_user'),
-     url(r'^login/', 'auth.views.login_user'),
-     url(r'^logout/', 'auth.views.logout_user'),
-     url(r'^register/', 'auth.views.register_user'),
-     url(r'^home/', 'auth.views.homepage'),
-
-     url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', 'auth.views.login_user'),
+    url(r'^login/', 'auth.views.login_user'),
+    url(r'^logout/', 'auth.views.logout_user'),
+    url(r'^register/', 'auth.views.register_user'),
+    url(r'^home/', 'auth.views.homepage'),
+    url(r'^UploadInfo/', 'UserInfo.views.UploadInfo'),
+    url(r'^admin/', include(admin.site.urls)),
 )
 
 urlpatterns += patterns('',
