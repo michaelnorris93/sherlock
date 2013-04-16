@@ -1,0 +1,18 @@
+{% include 'header.html' %}
+
+<h3>Race: {{ s_user.race }}</h3>
+</br>
+
+<h3>You are {{ age }} years old</h3>
+</br>
+
+This is your photo:
+</br>
+<img src="/media/{{ s_user.photo }}/">
+
+</br>
+</br>
+
+<a href="/home/">Back to the homepage</a>
+
+{% include 'footer.html' %}

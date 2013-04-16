@@ -1,29 +1,9 @@
-<html>
-	<title>
-		Home page
-	</title>
-	<body>
-	<table>
-	<td>
-		<tr>
-			<h3> Hey, {{user.username}}! </h3>
-		</tr>
-	</td>
-	<td>
-		<tr>
-			<a href="login.html"> Login</a><br>
-			<a href="register.html"> Register</a><br>
-		</tr>
-	</td>
-	<td>
-		<tr>
-		<br>
-		Project Description
-		<br>
-		</tr>
-	</td>	
-	<td>
-		<a href="photoGuessing.html"> Play</a><br>
-	</td>
-	</body>
-</html>	
+{% include 'header.html' %}	
+
+<h3> Hey, {{ user.username }}! </h3>
+<a href="/UploadInfo/">Upload your info!</a>
+</br>
+<a href="/ViewUserInfo/">View your info!</a>
+</br>
+
+{% include 'footer.html' %}

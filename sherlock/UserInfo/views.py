@@ -1,8 +1,23 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from auth.models import SherlockUser
 from UserInfo.forms import SherlockUserForm
 
+from datetime import date
+
+@login_required(login_url="/login/")
+def ViewUserInfo(request):
+    s_user = SherlockUser.objects.get(user=request.user)
+    if(s_user.photo is None):
+        state = "You haven't uploaded any info yet. Please follow the link to do so."
+        return render(request, 'ViewUserInfo.html', {'user': request.user, 'state': state})
+    else:
+        state = "Here's your info."
+        age = calculate_age(s_user.date_of_birth)
+        return render(request, 'ViewUserInfo.html', {'user': request.user, 's_user': s_user, 'age': age})
+
+@login_required(login_url="/login/")
 def UploadInfo(request):
     if request.method == 'POST':
         form = SherlockUserForm(request.POST, request.FILES)
@@ -41,4 +56,16 @@ def UploadInfo(request):
 
     return render(request, 'UploadInfo.html', {
         'form': form,
-    }) 
+    })
+
+def calculate_age(born):
+    today = date.today()
+    try:
+        birthday = born.replace(year=today.year)
+    except ValueError:
+        birthday = born.replace(year=today.year, day=born.day-1)
+    
+    if birthday > today:
+        return today.year - born.year - 1
+    else:
+        return today.year - born.year 
