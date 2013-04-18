@@ -126,7 +126,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'auth',
-    # Uncomment the next line to enable admin documentation:
+    'SherlockGame', 
+     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
 

@@ -9,9 +9,9 @@ from datetime import date
 @login_required(login_url="/login/")
 def ViewUserInfo(request):
     s_user = SherlockUser.objects.get(user=request.user)
-    if(s_user.photo is None):
+    if(s_user.race is None):
         state = "You haven't uploaded any info yet. Please follow the link to do so."
-        return render(request, 'ViewUserInfo.html', {'user': request.user, 'state': state})
+        return render(request, 'ViewUserInfo_None.html', {'user': request.user, 'state': state})
     else:
         state = "Here's your info."
         age = calculate_age(s_user.date_of_birth)
