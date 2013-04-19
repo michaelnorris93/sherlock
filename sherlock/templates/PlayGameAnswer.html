@@ -1,5 +1,11 @@
 {% include 'header.html' %}
 
+<img src="/media/{{ photo_user.photo }}">
+</br>
+
+<h3>{{ question.text }}</h3>
+</br>
+
 <h3>You answered... {{ user_answer }}</h3>
 </br>
 
@@ -7,12 +13,6 @@
 </br>
 
 <h2>{{ response }}</h2>
-</br>
-
-<img src="/media/{{ photo_user.photo }}">
-</br>
-
-<h3>{{ question.text }}</h3>
 </br>
 
 <button class="" name="next" type="submit">

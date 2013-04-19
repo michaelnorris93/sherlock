@@ -16,6 +16,7 @@ def PlayGame(request):
             #save the previous question appropriately and load a new one
         else:
             #what to do if user submits his answer
+
     num_photos = SherlockUser_model.objects.count() - SherlockUser_model.objects.filter(race=None).count()
     s_userID = random.randint(1, num_photos)
     photo_user = SherlockUser_model.objects.get(id=s_userID) #retrieve random SherlockUser 
@@ -25,3 +26,9 @@ def PlayGame(request):
     questiontype = QuestionType_model.objects.get(id=questionID) #retrieve random question
 
     return render(request, 'PlayGame.html', {'user': request.user, 'photo_user': photo_user, 'question': questiontype})
+
+def PlayGameAnswer(request):
+    if request.POST:
+        #check if answer is correct
+        #find answer and update values
+        #server PlayGameAnswers with necessary data

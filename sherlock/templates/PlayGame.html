@@ -17,10 +17,14 @@
 </script>
 
 <form id="submit_answer" action="/PlayGame/" method="POST">{% csrf_token %}
+	<input type="hidden" name="photo_user_id" value="{{ photo_user.id }}"/>
+	<input type="hidden" name="question_type" value="{{ question.id }}"/>
 	{{ form.as_p }}
 </form>
 
 <form id="skip_answer" action="/PlayGame/" method="POST">{% csrf_token %}
+	<input type="hidden" name="photo_user_id" value="{{ photo_user.id }}"/>
+	<input type="hidden" name="question_type" value="{{ question.id }}"/>
 	<input type="hidden" name="skipped" value="True"/>
 </form>
 
