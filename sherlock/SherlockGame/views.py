@@ -11,10 +11,12 @@ import random
 def PlayGame(request):
     if request.POST:
         if(request.POST.get('skipped') == 'True'):
+            pass
             #what to do if user skips question
             #need to separately handle the case where the user skips before/after answering
             #save the previous question appropriately and load a new one
         else:
+            pass
             #what to do if user submits his answer
 
     num_photos = SherlockUser_model.objects.count() - SherlockUser_model.objects.filter(race=None).count()
@@ -29,6 +31,7 @@ def PlayGame(request):
 
 def PlayGameAnswer(request):
     if request.POST:
+        pass
         #check if answer is correct
         #find answer and update values
         #server PlayGameAnswers with necessary data
