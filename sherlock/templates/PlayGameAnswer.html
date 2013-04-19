@@ -1,0 +1,21 @@
+{% include 'header.html' %}
+
+<h3>You answered... {{ user_answer }}</h3>
+</br>
+
+<h3>The correct answer is... {{ correct_answer }}</h3>
+</br>
+
+<h2>{{ response }}</h2>
+</br>
+
+<img src="/media/{{ photo_user.photo }}">
+</br>
+
+<h3>{{ question.text }}</h3>
+</br>
+
+<button class="" name="next" type="submit">
+	<a href="/PlayGame/">Next Question</a>
+</button>
+{% include 'footer.html' %}

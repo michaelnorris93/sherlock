@@ -1,6 +1,34 @@
 {% include 'header.html' %}
 
-<h3>{{ num }}</h3>
+<img src="/media/{{ photo_user.photo }}">
 </br>
 
+<h3>{{ question.text }}</h3>
+</br>
+
+<script type="text/javascript">
+	function submit_answer(){
+		document.getElementById("submit_answer").submit();	
+	}
+	
+	function skip_answer(){
+		document.getElementById("skip_answer").submit();
+	}	
+</script>
+
+<form id="submit_answer" action="/PlayGame/" method="POST">{% csrf_token %}
+	{{ form.as_p }}
+</form>
+
+<form id="skip_answer" action="/PlayGame/" method="POST">{% csrf_token %}
+	<input type="hidden" name="skipped" value="True"/>
+</form>
+
+<button class="" name="submit" type="submit" onclick="submit_answer()">
+submit
+</button>
+
+<button class="" name="skip" type="submit" onclick="skip_answer()">
+skip
+</button>
 {% include 'footer.html' %}
