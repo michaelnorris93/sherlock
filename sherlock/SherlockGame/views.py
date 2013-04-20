@@ -76,7 +76,7 @@ def PlayGameAnswer(request):
         compare1 = user_answer
         compare2 = correct_answer
     
-        if isinstance(compare1, string):
+        if isinstance(compare1, str):
             compare1 = compare1.lower()
             compare2 = compare2.lower()
        
