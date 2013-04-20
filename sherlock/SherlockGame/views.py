@@ -73,7 +73,7 @@ def PlayGameAnswer(request):
         elif question_type.info_type == "age":
             correct_answer = calculate_age(photo_user.date_of_birth) 
        
-        if user_answer == correct_answer:
+        if user_answer.lower() == correct_answer.lower():
             isuser_correct = True
             response = "good job!"
         else:
