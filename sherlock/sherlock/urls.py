@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     url(r'^UploadInfo/', 'UserInfo.views.UploadInfo'),
     url(r'^ViewUserInfo/', 'UserInfo.views.ViewUserInfo'), 
     url(r'^PlayGame/', 'SherlockGame.views.PlayGame'), 
+    url(r'^PlayGameAnswer/', 'SherlockGame.views.PlayGameAnswer'),
     url(r'^admin/', include(admin.site.urls)),
 )
 
