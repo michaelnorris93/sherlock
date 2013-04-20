@@ -1,6 +1,7 @@
 {% include 'header.html' %}
 
-<img src="/media/{{ photo_user.photo }}">
+<center>
+<img src="/media/{{ photo_user.photo }}"  alt="photo" height="242">
 </br>
 
 <h3>{{ question.text }}</h3>
@@ -40,4 +41,5 @@ skip
 
 </br>
 <a href="/home/">Quit</a>
+</center>
 {% include 'footer.html' %}
