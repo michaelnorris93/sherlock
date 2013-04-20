@@ -72,8 +72,15 @@ def PlayGameAnswer(request):
             correct_answer = photo_user.race 
         elif question_type.info_type == "age":
             correct_answer = calculate_age(photo_user.date_of_birth) 
+
+        compare1 = user_answer
+        compare2 = correct_answer
+    
+        if isinstance(compare1, string):
+            compare1 = compare1.lower()
+            compare2 = compare2.lower()
        
-        if user_answer.lower() == correct_answer.lower():
+        if compare1 == compare2:
             isuser_correct = True
             response = "good job!"
         else:
